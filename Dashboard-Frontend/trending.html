@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trending Products</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>🔥 Trending Products</h2>
+    <canvas id="trendChart"></canvas>
+    <ul id="trendList"></ul>
+  </div>
+
+  <script>
+    async function fetchTrends() {
+      const res = await fetch("http://127.0.0.1:5000/trending");
+      const data = await res.json();
+
+      const labels = [];
+      const scores = [];
+      const ul = document.getElementById("trendList");
+      ul.innerHTML = "";
+
+      data.forEach(trend => {
+        labels.push(trend.topic);
+        scores.push(trend.trend_score);
+        const li = document.createElement("li");
+        li.innerText = `${trend.topic} (${trend.intensity}, Score: ${trend.trend_score}) from ${trend.source}`;
+        ul.appendChild(li);
+      });
+
+      const ctx = document.getElementById("trendChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Trend Score',
+            data: scores,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    fetchTrends();
+    setInterval(fetchTrends, 30000); // Auto-refresh
+  </script>
+</body>
+</html>
