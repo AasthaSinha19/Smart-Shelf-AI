@@ -1,0 +1,108 @@
+/* Global Styles */
+body {
+  background-color: #e6f7ff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Centered Container */
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+h1, h2 {
+  color: #007acc;
+  text-align: center;
+  margin-bottom: 10px;
+  
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #004c6d;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
+  
+}
+
+
+button{
+  display: inline-block;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #005f99;
+}
+
+/* List Styling */
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Chart Container */
+.chart-container {
+  margin: 30px 0;
+}
+
+/* Bar Chart Enhancements */
+.bar {
+  height: 24px;
+  margin: 5px 0;
+  background-color: #29b6f6;
+  border-radius: 4px;
+  color: white;
+  padding-left: 10px;
+  line-height: 24px;
+  font-size: 14px;
+}
+
+.bar.high { background-color: #e53935; }       /* High risk or trend */
+.bar.medium { background-color: #fb8c00; }     /* Medium */
+.bar.low { background-color: #43a047; }        /* Low */
+
+/* Date-Time Picker and Refresh Section */
+.control-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.control-panel input[type="datetime-local"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
