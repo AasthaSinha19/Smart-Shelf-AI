@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alerts Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>📡 Real-time Alerts</h2>
+    <input type="date" id="datePicker" />
+    <button onclick="fetchAlerts()">🔄 Refresh Now</button>
+    <canvas id="riskChart"></canvas>
+    <ul id="alertList"></ul>
+  </div>
+
+  <script>
+    async function fetchAlerts() {
+      const res = await fetch("http://127.0.0.1:5000/alerts");
+      const data = await res.json();
+
+      const labels = [];
+      const risks = [];
+      const ul = document.getElementById("alertList");
+      ul.innerHTML = "";
+
+      data.forEach(alert => {
+        labels.push(alert.title);
+        risks.push(alert.risk_percent);
+        const li = document.createElement("li");
+        li.innerText = `${alert.title} - Risk: ${alert.risk_level} (${alert.risk_percent}%) from ${alert.source} - Fill in ${alert.disruption_days} days`;
+        ul.appendChild(li);
+      });
+
+      const ctx = document.getElementById("riskChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Risk %',
+            data: risks,
+            backgroundColor: 'rgba(255, 99, 132, 0.5)'
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    fetchAlerts();
+    setInterval(fetchAlerts, 30000); // Auto-refresh every 30s
+  </script>
+</body>
+</html>
